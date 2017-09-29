@@ -10,5 +10,7 @@ RUN mkdir -p /opt && \
     ln -s spark-${spark_ver}-bin-hadoop2.6 spark && \
     echo Spark ${spark_ver} installed in /opt
 
+RUN echo "unset SPARK_MASTER_PORT && echo $(hostname -i) 'spark-master' >> /etc/hosts && /opt/spark/sbin/start-master.sh --ip spark-master --port 7077" > /start-container.sh && chmod 777 /start-container.sh
+
 ENV PATH $PATH:/opt/spark/bin
-ENTRYPOINT ["unset SPARK_MASTER_PORT &&	echo $(hostname -i) 'spark-master' >> /etc/hosts && /opt/spark/sbin/start-master.sh", "--ip spark-master --port 7077"]
+ENTRYPOINT [/start-container.sh]
