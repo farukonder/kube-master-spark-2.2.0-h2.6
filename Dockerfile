@@ -13,4 +13,4 @@ RUN mkdir -p /opt && \
 RUN echo "unset SPARK_MASTER_PORT && echo $(hostname -i) 'spark-master' >> /etc/hosts && /opt/spark/sbin/start-master.sh --ip spark-master --port 7077" > /opt/spark/sbin/start-container.sh && chmod 777 /opt/spark/sbin/start-container.sh
 
 ENV PATH $PATH:/opt/spark/bin
-ENTRYPOINT [/opt/spark/sbin/start-container.sh]
+ENTRYPOINT ["/opt/spark/sbin/start-master.sh"," --ip spark-master --port 7077"]
